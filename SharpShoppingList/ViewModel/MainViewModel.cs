@@ -1,11 +1,8 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight.Views;
 using SharpShoppingList.Models;
-using System;
-using SharpShoppingList.Views;
-using Android.Content;
+using System.Collections.ObjectModel;
 
 namespace SharpShoppingList.ViewModel
 {
@@ -45,7 +42,8 @@ namespace SharpShoppingList.ViewModel
 
         public RelayCommand<string> SaveShoppingListCommand
         {
-            get {
+            get
+            {
                 return _saveShoppingListCommand ?? (_saveShoppingListCommand = new RelayCommand<string>(
                     listName =>
                     {

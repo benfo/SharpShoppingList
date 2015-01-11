@@ -4,9 +4,8 @@ using Android.Views;
 using Android.Widget;
 using GalaSoft.MvvmLight.Helpers;
 using GalaSoft.MvvmLight.Views;
-using Java.Lang;
-using SharpShoppingList.ViewModel;
 using SharpShoppingList.Models;
+using SharpShoppingList.ViewModel;
 
 namespace SharpShoppingList.Views
 {

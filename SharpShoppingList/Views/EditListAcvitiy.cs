@@ -1,11 +1,10 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using GalaSoft.MvvmLight.Helpers;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
-using GalaSoft.MvvmLight.Helpers;
 using SharpShoppingList.ViewModel;
 
 namespace SharpShoppingList.Views
