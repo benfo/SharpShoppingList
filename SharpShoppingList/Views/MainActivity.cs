@@ -6,31 +6,17 @@ using GalaSoft.MvvmLight.Helpers;
 using GalaSoft.MvvmLight.Views;
 using Java.Lang;
 using SharpShoppingList.ViewModel;
+using SharpShoppingList.Models;
 
 namespace SharpShoppingList.Views
 {
     [Activity(
         Label = "Sharp Shopping List",
         MainLauncher = true)]
-    public class MainActivity : ActivityBase
+    public class MainActivity : ActivityBase, AdapterView.IOnItemClickListener
     {
         private Button _button1;
         private ListView _shoppingsLists;
-
-        private Button Button1
-        {
-            get { return _button1 ?? (_button1 = FindViewById<Button>(Resource.Id.button1)); }
-        }
-
-        private ListView ShoppingLists
-        {
-            get { return _shoppingsLists ?? (_shoppingsLists = FindViewById<ListView>(Resource.Id.shoppingsLists)); }
-        }
-
-        private MainViewModel ViewModel
-        {
-            get { return App.Locator.Main; }
-        }
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -42,9 +28,30 @@ namespace SharpShoppingList.Views
                 ViewModel.AddShoppingListCommand);
 
             ShoppingLists.Adapter = ViewModel.ShoppingLists.GetAdapter(GetShoppingListAdapter);
+            ShoppingLists.OnItemClickListener = this;
         }
 
-        private View GetShoppingListAdapter(int position, string listName, View convertView)
+        private Button Button1
+        {
+            get { return _button1 ?? (_button1 = FindViewById<Button>(Resource.Id.button1)); }
+        }
+
+        private ListView ShoppingLists
+        {
+            get { return _shoppingsLists ?? (_shoppingsLists = FindViewById<ListView>(Resource.Id.lists)); }
+        }
+
+        private MainViewModel ViewModel
+        {
+            get { return App.Locator.Main; }
+        }
+
+        public void OnItemClick(AdapterView parent, View view, int position, long id)
+        {
+            ViewModel.ShowDetailsCommand.Execute(ViewModel.ShoppingLists[position]);
+        }
+
+        private View GetShoppingListAdapter(int position, ShoppingList shoppingList, View convertView)
         {
             var view = convertView;
 
@@ -62,11 +69,11 @@ namespace SharpShoppingList.Views
                 view.Tag = holder;
             }
 
-            holder.ListNameView.Text = listName;
+            holder.ListNameView.Text = shoppingList.Name;
             return view;
         }
 
-        private class ViewHolder : Object
+        private class ViewHolder : Java.Lang.Object
         {
             public TextView ListNameView { get; set; }
         }

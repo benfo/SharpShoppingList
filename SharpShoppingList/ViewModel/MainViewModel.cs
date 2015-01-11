@@ -1,24 +1,34 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using SharpShoppingList.Models;
 using System.Collections.ObjectModel;
+using GalaSoft.MvvmLight.Views;
+using SharpShoppingList.Models;
+using System;
+using SharpShoppingList.Views;
+using Android.Content;
 
 namespace SharpShoppingList.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        private readonly AddListRequest _addListRequest;
-        private RelayCommand _addShoppingsListCommand;
-        private ObservableCollection<string> _shoppingLists;
+        private readonly INavigationService _navigationService;
+        private readonly IDialogService _dialogService;
 
-        public MainViewModel()
+        private RelayCommand _addShoppingsListCommand;
+        private RelayCommand<string> _saveShoppingListCommand;
+        private RelayCommand<ShoppingList> _showDetailsCommand;
+
+        private ObservableCollection<ShoppingList> _shoppingLists;
+
+        public MainViewModel(INavigationService navigationService, IDialogService dialogService)
         {
-            _addListRequest = new AddListRequest();
+            _navigationService = navigationService;
+            _dialogService = dialogService;
         }
 
-        public ObservableCollection<string> ShoppingLists
+        public ObservableCollection<ShoppingList> ShoppingLists
         {
-            get { return _shoppingLists ?? (_shoppingLists = new ObservableCollection<string>()); }
+            get { return _shoppingLists ?? (_shoppingLists = new ObservableCollection<ShoppingList>()); }
         }
 
         public RelayCommand AddShoppingListCommand
@@ -28,15 +38,39 @@ namespace SharpShoppingList.ViewModel
                 return _addShoppingsListCommand ?? (_addShoppingsListCommand = new RelayCommand(
                     () =>
                     {
-                        _addListRequest.Raise(new AddListNotification { Title = "Add New Shopping List" },
-                            result =>
-                            {
-                                if (result.Confirmed)
-                                {
-                                    _shoppingLists.Add(result.ListName);
-                                }
-                            });
+                        _navigationService.NavigateTo("AddList", this);
                     }));
+            }
+        }
+
+        public RelayCommand<string> SaveShoppingListCommand
+        {
+            get {
+                return _saveShoppingListCommand ?? (_saveShoppingListCommand = new RelayCommand<string>(
+                    listName =>
+                    {
+                        _shoppingLists.Add(new ShoppingList { Name = listName });
+                        _navigationService.GoBack();
+                    },
+                    listName => !string.IsNullOrEmpty(listName)));
+            }
+        }
+
+        public RelayCommand<ShoppingList> ShowDetailsCommand
+        {
+            get
+            {
+                return _showDetailsCommand ?? (_showDetailsCommand = new RelayCommand<ShoppingList>(
+                    shoppingList =>
+                    {
+                        if (!ShowDetailsCommand.CanExecute(shoppingList))
+                        {
+                            return;
+                        }
+
+                        _dialogService.ShowMessage(shoppingList.Name, "Selected");
+                    },
+                    shoppingList => shoppingList != null));
             }
         }
     }

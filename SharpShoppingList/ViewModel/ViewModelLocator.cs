@@ -1,7 +1,6 @@
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
-using SharpShoppingList.Models;
 using SharpShoppingList.Views;
 
 namespace SharpShoppingList.ViewModel
@@ -15,7 +14,6 @@ namespace SharpShoppingList.ViewModel
             var navigationService = CreateNavigationService();
             SimpleIoc.Default.Register(() => navigationService);
             SimpleIoc.Default.Register<IDialogService, DialogService>();
-            SimpleIoc.Default.Register<IAddListRequest, AddListRequest>();
             SimpleIoc.Default.Register<MainViewModel>();
         }
 
@@ -27,7 +25,7 @@ namespace SharpShoppingList.ViewModel
         private static INavigationService CreateNavigationService()
         {
             var navigationService = new NavigationService();
-            navigationService.Configure("Details", typeof(ShoppingListDetailView));
+            navigationService.Configure("AddList", typeof(EditListAcvitiy));
             return navigationService;
         }
     }
