@@ -50,7 +50,7 @@ namespace SharpShoppingList.Views
             ViewModel.ShowDetailsCommand.Execute(ViewModel.ShoppingLists[position]);
         }
 
-        private View GetShoppingListAdapter(int position, ShoppingList shoppingList, View convertView)
+        private View GetShoppingListAdapter(int position, List shoppingList, View convertView)
         {
             var view = convertView;
 

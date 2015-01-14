@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using SharpShoppingList.Models;
 using System.Collections.ObjectModel;
+using SharpShoppingList.Data;
 
 namespace SharpShoppingList.ViewModel
 {
@@ -10,22 +11,30 @@ namespace SharpShoppingList.ViewModel
     {
         private readonly INavigationService _navigationService;
         private readonly IDialogService _dialogService;
+        private readonly IListRepository _listRepository;
 
         private RelayCommand _addShoppingsListCommand;
         private RelayCommand<string> _saveShoppingListCommand;
-        private RelayCommand<ShoppingList> _showDetailsCommand;
+        private RelayCommand<List> _showDetailsCommand;
 
-        private ObservableCollection<ShoppingList> _shoppingLists;
+        private ObservableCollection<List> _shoppingLists;
 
-        public MainViewModel(INavigationService navigationService, IDialogService dialogService)
+        public MainViewModel(INavigationService navigationService, IDialogService dialogService, IListRepository listRepository)
         {
             _navigationService = navigationService;
             _dialogService = dialogService;
+            _listRepository = listRepository;
         }
 
-        public ObservableCollection<ShoppingList> ShoppingLists
+        public ObservableCollection<List> ShoppingLists
         {
-            get { return _shoppingLists ?? (_shoppingLists = new ObservableCollection<ShoppingList>()); }
+            get { return _shoppingLists ?? (_shoppingLists = LoadLists()); }
+        }
+
+        private ObservableCollection<List> LoadLists()
+        {
+            var lists = _listRepository.GetLists();
+            return new ObservableCollection<List>(lists);
         }
 
         public RelayCommand AddShoppingListCommand
@@ -47,18 +56,20 @@ namespace SharpShoppingList.ViewModel
                 return _saveShoppingListCommand ?? (_saveShoppingListCommand = new RelayCommand<string>(
                     listName =>
                     {
-                        _shoppingLists.Add(new ShoppingList { Name = listName });
+                        var list = new List { Name = listName };
+                        _listRepository.AddList(list);
+                        _shoppingLists.Add(list);
                         _navigationService.GoBack();
                     },
                     listName => !string.IsNullOrEmpty(listName)));
             }
         }
 
-        public RelayCommand<ShoppingList> ShowDetailsCommand
+        public RelayCommand<List> ShowDetailsCommand
         {
             get
             {
-                return _showDetailsCommand ?? (_showDetailsCommand = new RelayCommand<ShoppingList>(
+                return _showDetailsCommand ?? (_showDetailsCommand = new RelayCommand<List>(
                     shoppingList =>
                     {
                         if (!ShowDetailsCommand.CanExecute(shoppingList))

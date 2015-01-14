@@ -1,6 +1,7 @@
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
+using SharpShoppingList.Data;
 using SharpShoppingList.Views;
 
 namespace SharpShoppingList.ViewModel
@@ -15,6 +16,7 @@ namespace SharpShoppingList.ViewModel
             SimpleIoc.Default.Register(() => navigationService);
             SimpleIoc.Default.Register<IDialogService, DialogService>();
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<IListRepository, ListRepository>();
         }
 
         public MainViewModel Main
