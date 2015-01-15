@@ -7,11 +7,11 @@ namespace SharpShoppingList.Data
 {
     public class ListRepository : IListRepository
     {
-        private readonly Database _database;
+        private readonly ShoppingListDb _db;
 
         public ListRepository()
         {
-            _database = new Database(DatabaseFilePath);
+            _db = new ShoppingListDb(DatabaseFilePath);
         }
 
         private static string DatabaseFilePath
@@ -47,17 +47,17 @@ namespace SharpShoppingList.Data
 
         public IEnumerable<List> GetLists()
         {
-            return _database.GetLists();
+            return _db.GetLists();
         }
 
         public int AddList(List list)
         {
-            return _database.SaveItem(list);
+            return _db.SaveItem(list);
         }
 
         public int DeleteList(int id)
         {
-            return _database.DeleteItem(id);
+            return _db.DeleteItem(id);
         }
     }
 }
