@@ -15,12 +15,14 @@ namespace SharpShoppingList.Views
     public class MainActivity : ActivityBase, AdapterView.IOnItemClickListener
     {
         private ListView _shoppingsLists;
+        private TextView _emptyListView;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
+            ShoppingLists.EmptyView = EmptyListView;
             ShoppingLists.Adapter = ViewModel.ShoppingLists.GetAdapter(GetShoppingListAdapter);
             ShoppingLists.OnItemClickListener = this;
         }
@@ -50,6 +52,11 @@ namespace SharpShoppingList.Views
         private ListView ShoppingLists
         {
             get { return _shoppingsLists ?? (_shoppingsLists = FindViewById<ListView>(Resource.Id.lists)); }
+        }
+
+        private TextView EmptyListView
+        {
+            get { return _emptyListView ?? (_emptyListView = FindViewById<TextView>(Resource.Id.empty_list_item)); }
         }
 
         private MainViewModel ViewModel
