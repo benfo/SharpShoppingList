@@ -43,11 +43,30 @@ namespace SharpShoppingList
 			}
 		}
 		
+		public partial class Color
+		{
+			
+			// aapt resource value: 0x7f050000
+			public const int gray_bg = 2131034112;
+			
+			static Color()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Color()
+			{
+			}
+		}
+		
 		public partial class Drawable
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Icon = 2130837504;
+			public const int ic_action_new = 2130837504;
+			
+			// aapt resource value: 0x7f020001
+			public const int Icon = 2130837505;
 			
 			static Drawable()
 			{
@@ -62,17 +81,20 @@ namespace SharpShoppingList
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060002
-			public const int button1 = 2131099650;
+			// aapt resource value: 0x7f080004
+			public const int action_add = 2131230724;
 			
-			// aapt resource value: 0x7f060000
-			public const int listname = 2131099648;
+			// aapt resource value: 0x7f080003
+			public const int empty_list_item = 2131230723;
 			
-			// aapt resource value: 0x7f060003
-			public const int lists = 2131099651;
+			// aapt resource value: 0x7f080000
+			public const int listname = 2131230720;
 			
-			// aapt resource value: 0x7f060001
-			public const int saveListNameButton = 2131099649;
+			// aapt resource value: 0x7f080002
+			public const int lists = 2131230722;
+			
+			// aapt resource value: 0x7f080001
+			public const int saveListNameButton = 2131230721;
 			
 			static Id()
 			{
@@ -103,6 +125,22 @@ namespace SharpShoppingList
 			}
 		}
 		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f070000
+			public const int Main_Actions = 2131165184;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
+			{
+			}
+		}
+		
 		public partial class String
 		{
 			
@@ -128,11 +166,11 @@ namespace SharpShoppingList
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int CustomActionBarTheme = 2131034112;
+			// aapt resource value: 0x7f060001
+			public const int ActionBarStyle_ActionBarStyle = 2131099649;
 			
-			// aapt resource value: 0x7f050001
-			public const int MyActionBar = 2131034113;
+			// aapt resource value: 0x7f060000
+			public const int AppTheme = 2131099648;
 			
 			static Style()
 			{

@@ -24,4 +24,4 @@ using System.Reflection;
 
 //[assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile("")]
-[assembly: Application(Icon = "@drawable/Icon", Theme = "@style/CustomActionBarTheme")]
+[assembly: Application(Icon = "@drawable/Icon", Theme = "@style/AppTheme")]

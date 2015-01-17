@@ -14,7 +14,6 @@ namespace SharpShoppingList.Views
         MainLauncher = true)]
     public class MainActivity : ActivityBase, AdapterView.IOnItemClickListener
     {
-        private Button _button1;
         private ListView _shoppingsLists;
 
         protected override void OnCreate(Bundle bundle)
@@ -22,17 +21,30 @@ namespace SharpShoppingList.Views
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
-            Button1.SetCommand(
-                "Click",
-                ViewModel.AddShoppingListCommand);
-
             ShoppingLists.Adapter = ViewModel.ShoppingLists.GetAdapter(GetShoppingListAdapter);
             ShoppingLists.OnItemClickListener = this;
         }
 
-        private Button Button1
+        public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            get { return _button1 ?? (_button1 = FindViewById<Button>(Resource.Id.button1)); }
+            var menuInflator = MenuInflater;
+            MenuInflater.Inflate(Resource.Menu.Main_Actions, menu);
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.action_add:
+                    if (ViewModel.AddShoppingListCommand.CanExecute(null))
+                    {
+                        ViewModel.AddShoppingListCommand.Execute(null);
+                    }
+                    return true;
+                default:
+                    return base.OnOptionsItemSelected(item);
+            }
         }
 
         private ListView ShoppingLists
