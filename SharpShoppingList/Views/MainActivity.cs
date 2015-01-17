@@ -4,7 +4,8 @@ using Android.Views;
 using Android.Widget;
 using GalaSoft.MvvmLight.Helpers;
 using GalaSoft.MvvmLight.Views;
-using SharpShoppingList.Models;
+using Java.Lang;
+using SharpShoppingList.Helpers;
 using SharpShoppingList.ViewModel;
 
 namespace SharpShoppingList.Views
@@ -12,7 +13,7 @@ namespace SharpShoppingList.Views
     [Activity(
         Label = "Sharp Shopping List",
         MainLauncher = true)]
-    public class MainActivity : ActivityBase, AdapterView.IOnItemClickListener
+    public class MainActivity : ActivityBase
     {
         private ListView _shoppingsLists;
         private TextView _emptyListView;
@@ -23,13 +24,48 @@ namespace SharpShoppingList.Views
             SetContentView(Resource.Layout.Main);
 
             ShoppingLists.EmptyView = EmptyListView;
-            ShoppingLists.Adapter = ViewModel.ShoppingLists.GetAdapter(GetShoppingListAdapter);
-            ShoppingLists.OnItemClickListener = this;
+            ShoppingLists.Adapter = ViewModel.Items.GetAdapter(GetShoppingListAdapter);
+            ShoppingLists.ChoiceMode = ChoiceMode.MultipleModal;
+            ShoppingLists.ItemClick += (sender, e) =>
+            {
+                var item = ViewModel.Items[e.Position];
+                ViewModel.ShowDetailsCommand.Execute(item);
+            };
+            
+            ShoppingLists.SetMultiChoiceModeListener(new MultiChoiceModeListener()
+                .OnCreateActionMode((mode, menu) =>
+                    {
+                        var inflater = MenuInflater;
+                        inflater.Inflate(Resource.Menu.List_Context_Menu, menu);
+                        return true;
+                    })
+                .OnItemCheckedStateChanged((mode, position, id, isChecked) =>
+                    {
+                        var item = ViewModel.Items[position];
+                        item.Selected = isChecked;
+                    })
+                .OnDestroyActionMode(mode => {
+                    ViewModel.ResetSelectedItems();
+                })
+                .OnActionItemClicked((mode, item) =>
+                    {
+                        switch (item.ItemId)
+                        {
+                            case Resource.Id.action_delete:
+                                if (ViewModel.DeleteSelectedItemsCommand.CanExecute(null))
+                                {
+                                    ViewModel.DeleteSelectedItemsCommand.Execute(null);
+                                }
+                                mode.Finish();
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }));
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            var menuInflator = MenuInflater;
             MenuInflater.Inflate(Resource.Menu.Main_Actions, menu);
             return base.OnCreateOptionsMenu(menu);
         }
@@ -39,9 +75,9 @@ namespace SharpShoppingList.Views
             switch (item.ItemId)
             {
                 case Resource.Id.action_add:
-                    if (ViewModel.AddShoppingListCommand.CanExecute(null))
+                    if (ViewModel.AddItemCommand.CanExecute(null))
                     {
-                        ViewModel.AddShoppingListCommand.Execute(null);
+                        ViewModel.AddItemCommand.Execute(null);
                     }
                     return true;
                 default:
@@ -64,12 +100,7 @@ namespace SharpShoppingList.Views
             get { return App.Locator.Main; }
         }
 
-        public void OnItemClick(AdapterView parent, View view, int position, long id)
-        {
-            ViewModel.ShowDetailsCommand.Execute(ViewModel.ShoppingLists[position]);
-        }
-
-        private View GetShoppingListAdapter(int position, List shoppingList, View convertView)
+        private View GetShoppingListAdapter(int position, ListViewModel shoppingList, View convertView)
         {
             var view = convertView;
 
@@ -82,16 +113,16 @@ namespace SharpShoppingList.Views
             if (holder == null)
             {
                 holder = new ViewHolder();
-                view = LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItem1, null);
+                view = LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItemActivated1, null);
                 holder.ListNameView = view.FindViewById<TextView>(Android.Resource.Id.Text1);
                 view.Tag = holder;
             }
 
-            holder.ListNameView.Text = shoppingList.Name;
+            holder.ListNameView.Text = shoppingList.List.Name;
             return view;
         }
 
-        private class ViewHolder : Java.Lang.Object
+        private class ViewHolder : Object
         {
             public TextView ListNameView { get; set; }
         }

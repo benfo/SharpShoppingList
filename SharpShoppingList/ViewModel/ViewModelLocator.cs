@@ -8,6 +8,8 @@ namespace SharpShoppingList.ViewModel
 {
     public class ViewModelLocator
     {
+        public const string AddListKey = "AddList";
+
         static ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
@@ -27,7 +29,7 @@ namespace SharpShoppingList.ViewModel
         private static INavigationService CreateNavigationService()
         {
             var navigationService = new NavigationService();
-            navigationService.Configure("AddList", typeof(EditListAcvitiy));
+            navigationService.Configure(AddListKey, typeof(EditListAcvitiy));
             return navigationService;
         }
     }
