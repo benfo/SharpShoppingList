@@ -5,11 +5,11 @@ using System.IO;
 
 namespace SharpShoppingList.Data
 {
-    public class ListRepository : IListRepository
+    public class ShoppingListRepository : IShoppingListRepository
     {
         private readonly ShoppingListDb _db;
 
-        public ListRepository()
+        public ShoppingListRepository()
         {
             _db = new ShoppingListDb(DatabaseFilePath);
         }
@@ -45,19 +45,19 @@ namespace SharpShoppingList.Data
             }
         }
 
-        public IEnumerable<List> GetLists()
+        public IEnumerable<ShoppingList> GetAll()
         {
-            return _db.GetLists();
+            return _db.GetAllShoppingLists();
         }
 
-        public int AddList(List list)
+        public int Add(ShoppingList shoppingList)
         {
-            return _db.SaveItem(list);
+            return _db.SaveShoppingList(shoppingList);
         }
 
-        public int DeleteList(int id)
+        public int Delete(int id)
         {
-            return _db.DeleteItem(id);
+            return _db.DeleteShoppingList(id);
         }
     }
 }

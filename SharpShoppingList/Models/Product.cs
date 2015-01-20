@@ -1,6 +1,6 @@
-namespace SharpShoppingList.Models
+﻿namespace SharpShoppingList.Models
 {
-    public class List
+    public class Product
     {
         public int Id { get; set; }
 

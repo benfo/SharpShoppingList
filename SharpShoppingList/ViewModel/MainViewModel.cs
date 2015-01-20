@@ -12,73 +12,73 @@ namespace SharpShoppingList.ViewModel
     {
         private readonly INavigationService _navigationService;
         private readonly IDialogService _dialogService;
-        private readonly IListRepository _listRepository;
+        private readonly IShoppingListRepository _shoppingListRepository;
 
-        private RelayCommand _addItemCommand;
-        private RelayCommand<string> _saveItemCommand;
-        private RelayCommand<ListViewModel> _showDetailsCommand;
-        private RelayCommand _deleteSelectedItemsCommand;
+        private RelayCommand _addShoppingListCommand;
+        private RelayCommand<string> _saveShoppingListCommand;
+        private RelayCommand<ShoppingListViewModel> _editProductsCommand;
+        private RelayCommand _deleteSelectedShoppingListsCommand;
 
-        private ObservableCollection<ListViewModel> _items;
+        private ObservableCollection<ShoppingListViewModel> _shoppingLists;
 
-        public MainViewModel(INavigationService navigationService, IDialogService dialogService, IListRepository listRepository)
+        public MainViewModel(INavigationService navigationService, IDialogService dialogService, IShoppingListRepository shoppingListRepository)
         {
             _navigationService = navigationService;
             _dialogService = dialogService;
-            _listRepository = listRepository;
+            _shoppingListRepository = shoppingListRepository;
         }
 
-        public ObservableCollection<ListViewModel> Items
+        public ObservableCollection<ShoppingListViewModel> ShoppingLists
         {
-            get { return _items ?? (_items = LoadItems()); }
+            get { return _shoppingLists ?? (_shoppingLists = LoadFromStorage()); }
         }
 
-        private ObservableCollection<ListViewModel> LoadItems()
+        private ObservableCollection<ShoppingListViewModel> LoadFromStorage()
         {
-            var lists = _listRepository
-                .GetLists()
-                .Select(list => new ListViewModel
+            var shoppingLists = _shoppingListRepository
+                .GetAll()
+                .Select(shoppingList => new ShoppingListViewModel
                 {
-                    List = list,
+                    ShoppingList = shoppingList,
                     Selected = false
                 });
 
-            return new ObservableCollection<ListViewModel>(lists);
+            return new ObservableCollection<ShoppingListViewModel>(shoppingLists);
         }
 
-        public void ResetSelectedItems()
+        public void ClearSelectedShoppingLists()
         {
-            foreach (var item in _items)
+            foreach (var item in _shoppingLists)
             {
                 item.Selected = false;
             }
         }
 
-        public RelayCommand AddItemCommand
+        public RelayCommand AddShoppingListCommand
         {
             get
             {
-                return _addItemCommand ?? (_addItemCommand = new RelayCommand(
+                return _addShoppingListCommand ?? (_addShoppingListCommand = new RelayCommand(
                     () =>
                     {
-                        _navigationService.NavigateTo(ViewModelLocator.AddListKey, this);
+                        _navigationService.NavigateTo(ViewModelLocator.AddShoppingListKey, this);
                     }));
             }
         }
 
-        public RelayCommand DeleteSelectedItemsCommand
+        public RelayCommand DeleteSelectedShoppingListsCommand
         {
             get
             {
-                return _deleteSelectedItemsCommand ?? (_deleteSelectedItemsCommand = new RelayCommand(() =>
+                return _deleteSelectedShoppingListsCommand ?? (_deleteSelectedShoppingListsCommand = new RelayCommand(() =>
                     {
-                        var itemsToRemove = _items
-                            .Where(list => list.Selected)
+                        var itemsToRemove = _shoppingLists
+                            .Where(shoppingList => shoppingList.Selected)
                             .ToArray();
                         foreach (var item in itemsToRemove)
                         {
-                            _listRepository.DeleteList(item.List.Id);
-                            _items.Remove(item);
+                            _shoppingListRepository.Delete(item.ShoppingList.Id);
+                            _shoppingLists.Remove(item);
                         }
                     }));
             }
@@ -88,35 +88,35 @@ namespace SharpShoppingList.ViewModel
         {
             get
             {
-                return _saveItemCommand ?? (_saveItemCommand = new RelayCommand<string>(
-                    listName =>
+                return _saveShoppingListCommand ?? (_saveShoppingListCommand = new RelayCommand<string>(
+                    shoppingListName =>
                     {
-                        var list = new List { Name = listName };
-                        _listRepository.AddList(list);
-                        _items.Add(new ListViewModel
+                        var list = new ShoppingList { Name = shoppingListName };
+                        _shoppingListRepository.Add(list);
+                        _shoppingLists.Add(new ShoppingListViewModel
                         {
-                            List = list,
+                            ShoppingList = list,
                             Selected = false
                         });
                         _navigationService.GoBack();
                     },
-                    listName => !string.IsNullOrEmpty(listName)));
+                    shoppingListName => !string.IsNullOrEmpty(shoppingListName)));
             }
         }
 
-        public RelayCommand<ListViewModel> ShowDetailsCommand
+        public RelayCommand<ShoppingListViewModel> EditProductsCommand
         {
             get
             {
-                return _showDetailsCommand ?? (_showDetailsCommand = new RelayCommand<ListViewModel>(
+                return _editProductsCommand ?? (_editProductsCommand = new RelayCommand<ShoppingListViewModel>(
                     shoppingList =>
                     {
-                        if (!ShowDetailsCommand.CanExecute(shoppingList))
+                        if (!EditProductsCommand.CanExecute(shoppingList))
                         {
                             return;
                         }
 
-                        _dialogService.ShowMessage(shoppingList.List.Name, "Selected");
+                        _dialogService.ShowMessage(shoppingList.ShoppingList.Name, "Selected");
                     },
                     shoppingList => shoppingList != null));
             }

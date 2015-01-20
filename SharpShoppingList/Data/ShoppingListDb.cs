@@ -14,15 +14,15 @@ namespace SharpShoppingList.Data
             InitializeDatabase(dbPath);
         }
 
-        public int DeleteItem(int id)
+        public int DeleteShoppingList(int id)
         {
-            return Execute("DELETE FROM [Lists] WHERE [Id] = ?;", id);
+            return Execute("DELETE FROM [ShoppingLists] WHERE [Id] = ?;", id);
         }
 
-        public IEnumerable<List> GetLists(int count = 0)
+        public IEnumerable<ShoppingList> GetAllShoppingLists(int count = 0)
         {
-            var lists = new List<List>();
-            var sql = "SELECT [Id], [Name] FROM [Lists]";
+            var lists = new List<ShoppingList>();
+            var sql = "SELECT [Id], [Name] FROM [ShoppingLists]";
             if (count > 0)
                 sql += " ORDER BY Id DESC LIMIT " + count;
 
@@ -32,23 +32,23 @@ namespace SharpShoppingList.Data
             return lists;
         }
 
-        public int SaveItem(List item)
+        public int SaveShoppingList(ShoppingList item)
         {
             int result;
             if (item.Id != 0)
             {
-                result = Execute("UPDATE [Lists] SET [Name] = ? WHERE [Id] = ?;", item.Name, item.Id);
+                result = Execute("UPDATE [ShoppingLists] SET [Name] = ? WHERE [Id] = ?;", item.Name, item.Id);
                 return result;
             }
 
-            result = Execute("INSERT INTO [Lists] ([Name]) VALUES (?)", item.Name);
+            result = Execute("INSERT INTO [ShoppingLists] ([Name]) VALUES (?)", item.Name);
             item.Id = Convert.ToInt32(Scalar("SELECT last_insert_rowid()"));
             return result;
         }
 
-        private static List MapToList(IDataRecord reader)
+        private static ShoppingList MapToList(IDataRecord reader)
         {
-            return new List
+            return new ShoppingList
             {
                 Id = Convert.ToInt32(reader["Id"]),
                 Name = reader["Name"].ToString()
@@ -63,18 +63,18 @@ namespace SharpShoppingList.Data
 
             var commands = new[]
             {
-                CreateCommand(@"CREATE TABLE [Lists] (
+                CreateCommand(@"CREATE TABLE [ShoppingLists] (
                                 [Id]    INTEGER PRIMARY KEY AUTOINCREMENT,
                                 [Name]  TEXT NOT NULL
                             );"),
-                CreateCommand(@"CREATE TABLE [Items] (
+                CreateCommand(@"CREATE TABLE [Products] (
                                 [Id]    INTEGER PRIMARY KEY AUTOINCREMENT,
                                 [Name]  TEXT NOT NULL
                             );"),
-                CreateCommand(@"CREATE TABLE [ListItems] (
-                                [ListId]    INTEGER REFERENCES Lists(Id),
-                                [ItemId]    INTEGER REFERENCES Items(Id),
-                                PRIMARY KEY(ListId,ItemId)
+                CreateCommand(@"CREATE TABLE [ShoppingListProducts] (
+                                [ShoppingListId]    INTEGER REFERENCES Lists(Id),
+                                [ProductId]    INTEGER REFERENCES Items(Id),
+                                PRIMARY KEY(ShoppingListId,ProductId)
                             );")
             };
             Execute(commands);

@@ -24,12 +24,12 @@ namespace SharpShoppingList.Views
             SetContentView(Resource.Layout.Main);
 
             ShoppingLists.EmptyView = EmptyListView;
-            ShoppingLists.Adapter = ViewModel.Items.GetAdapter(GetShoppingListAdapter);
+            ShoppingLists.Adapter = ViewModel.ShoppingLists.GetAdapter(GetShoppingListAdapter);
             ShoppingLists.ChoiceMode = ChoiceMode.MultipleModal;
             ShoppingLists.ItemClick += (sender, e) =>
             {
-                var item = ViewModel.Items[e.Position];
-                ViewModel.ShowDetailsCommand.Execute(item);
+                var item = ViewModel.ShoppingLists[e.Position];
+                ViewModel.EditProductsCommand.Execute(item);
             };
             
             ShoppingLists.SetMultiChoiceModeListener(new MultiChoiceModeListener()
@@ -41,20 +41,20 @@ namespace SharpShoppingList.Views
                     })
                 .OnItemCheckedStateChanged((mode, position, id, isChecked) =>
                     {
-                        var item = ViewModel.Items[position];
+                        var item = ViewModel.ShoppingLists[position];
                         item.Selected = isChecked;
                     })
                 .OnDestroyActionMode(mode => {
-                    ViewModel.ResetSelectedItems();
+                    ViewModel.ClearSelectedShoppingLists();
                 })
                 .OnActionItemClicked((mode, item) =>
                     {
                         switch (item.ItemId)
                         {
                             case Resource.Id.action_delete:
-                                if (ViewModel.DeleteSelectedItemsCommand.CanExecute(null))
+                                if (ViewModel.DeleteSelectedShoppingListsCommand.CanExecute(null))
                                 {
-                                    ViewModel.DeleteSelectedItemsCommand.Execute(null);
+                                    ViewModel.DeleteSelectedShoppingListsCommand.Execute(null);
                                 }
                                 mode.Finish();
                                 return true;
@@ -75,9 +75,9 @@ namespace SharpShoppingList.Views
             switch (item.ItemId)
             {
                 case Resource.Id.action_add:
-                    if (ViewModel.AddItemCommand.CanExecute(null))
+                    if (ViewModel.AddShoppingListCommand.CanExecute(null))
                     {
-                        ViewModel.AddItemCommand.Execute(null);
+                        ViewModel.AddShoppingListCommand.Execute(null);
                     }
                     return true;
                 default:
@@ -100,7 +100,7 @@ namespace SharpShoppingList.Views
             get { return App.Locator.Main; }
         }
 
-        private View GetShoppingListAdapter(int position, ListViewModel shoppingList, View convertView)
+        private View GetShoppingListAdapter(int position, ShoppingListViewModel shoppingShoppingList, View convertView)
         {
             var view = convertView;
 
@@ -118,7 +118,7 @@ namespace SharpShoppingList.Views
                 view.Tag = holder;
             }
 
-            holder.ListNameView.Text = shoppingList.List.Name;
+            holder.ListNameView.Text = shoppingShoppingList.ShoppingList.Name;
             return view;
         }
 

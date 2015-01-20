@@ -2,9 +2,9 @@ using SharpShoppingList.Models;
 
 namespace SharpShoppingList.ViewModel
 {
-    public class ListViewModel
+    public class ShoppingListViewModel
     {
-        public List List { get; set; }
+        public ShoppingList ShoppingList { get; set; }
 
         public bool Selected { get; set; }
     }
