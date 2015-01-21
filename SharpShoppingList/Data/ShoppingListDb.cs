@@ -1,17 +1,26 @@
-﻿using System;
+﻿using SharpShoppingList.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using SharpShoppingList.Models;
 using System.IO;
 
 namespace SharpShoppingList.Data
 {
     public class ShoppingListDb : SimpleDb
     {
-        public ShoppingListDb(string dbPath)
-            : base("Data Source=" + dbPath)
+        private readonly string _connectionString;
+
+        public ShoppingListDb()
         {
+            var dbPath = new DatabaseFilenameProvider("SharpShoppingList.db3").DatabaseFilePath;
+            _connectionString = "Data Source=" + dbPath;
+
             InitializeDatabase(dbPath);
+        }
+
+        protected override string ConnectionString
+        {
+            get { return _connectionString; }
         }
 
         public int DeleteShoppingList(int id)
@@ -59,7 +68,8 @@ namespace SharpShoppingList.Data
         {
             // create the tables
             var exists = File.Exists(path);
-            if (exists) return;
+            if (exists)
+                return;
 
             var commands = new[]
             {

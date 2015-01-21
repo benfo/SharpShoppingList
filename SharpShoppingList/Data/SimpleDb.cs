@@ -7,12 +7,7 @@ namespace SharpShoppingList.Data
 {
     public abstract class SimpleDb
     {
-        private readonly string _connectionString;
-
-        protected SimpleDb(string connectionString)
-        {
-            _connectionString = connectionString;
-        }
+        protected abstract string ConnectionString { get; }
 
         protected IDbCommand CreateCommand(string sql, params object[] args)
         {
@@ -74,7 +69,7 @@ namespace SharpShoppingList.Data
 
         private IDbConnection OpenConnection()
         {
-            var connection = new SqliteConnection(_connectionString);
+            var connection = new SqliteConnection(ConnectionString);
             connection.Open();
             return connection;
         }

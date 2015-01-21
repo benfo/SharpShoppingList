@@ -59,6 +59,7 @@
     <Reference Include="Mono.Data.Sqlite" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\DatabaseFilenameProvider.cs" />
     <Compile Include="Data\IProductRepository.cs" />
     <Compile Include="Data\IShoppingListRepository.cs" />
     <Compile Include="Data\DbCommandExtensions.cs" />
