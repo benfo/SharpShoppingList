@@ -82,8 +82,8 @@ namespace SharpShoppingList.Data
                                 [Name]  TEXT NOT NULL
                             );"),
                 CreateCommand(@"CREATE TABLE [ShoppingListProducts] (
-                                [ShoppingListId]    INTEGER REFERENCES Lists(Id),
-                                [ProductId]    INTEGER REFERENCES Items(Id),
+                                [ShoppingListId]    INTEGER REFERENCES ShoppingLists(Id),
+                                [ProductId]    INTEGER REFERENCES Products(Id),
                                 PRIMARY KEY(ShoppingListId,ProductId)
                             );")
             };
