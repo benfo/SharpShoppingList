@@ -104,7 +104,12 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-ldpi\ic_action_new.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SharpShoppingList.Core\SharpShoppingList.Core.csproj">
+      <Project>{c25b27a6-08f7-478c-8dad-1ffc797fd8e9}</Project>
+      <Name>SharpShoppingList.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-mdpi\ic_action_new.png" />
   </ItemGroup>

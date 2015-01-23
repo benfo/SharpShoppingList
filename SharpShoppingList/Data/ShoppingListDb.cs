@@ -25,17 +25,30 @@ namespace SharpShoppingList.Data
 
         public int DeleteShoppingList(int id)
         {
-            return Execute("DELETE FROM [ShoppingLists] WHERE [Id] = ?;", id);
+            var query = QueryBuilder
+                .Delete()
+                .From("ShoppingLists")
+                .Where("Id")
+                .Build();
+
+            return Execute(query, id);
         }
 
         public IEnumerable<ShoppingList> GetAllShoppingLists(int count = 0)
         {
             var lists = new List<ShoppingList>();
-            var sql = "SELECT [Id], [Name] FROM [ShoppingLists]";
-            if (count > 0)
-                sql += " ORDER BY Id DESC LIMIT " + count;
+            var queryBuilder = QueryBuilder
+                .Select("Id", "Name")
+                .From("ShoppingLists");
 
-            var results = Query(sql, new object[] { }, MapToList);
+            if (count > 0)
+            {
+                queryBuilder
+                    .OrderByDescending("Id")
+                    .Take(count);
+            }
+
+            var results = Query(queryBuilder.Build(), new object[] { }, MapToList);
             lists.AddRange(results);
 
             return lists;
@@ -46,12 +59,22 @@ namespace SharpShoppingList.Data
             int result;
             if (item.Id != 0)
             {
-                result = Execute("UPDATE [ShoppingLists] SET [Name] = ? WHERE [Id] = ?;", item.Name, item.Id);
+                var updateQuery = QueryBuilder
+                    .Update("ShoppingLists")
+                    .Set("Name")
+                    .Where("Id")
+                    .Build();
+
+                result = Execute(updateQuery, item.Name, item.Id);
                 return result;
             }
 
-            result = Execute("INSERT INTO [ShoppingLists] ([Name]) VALUES (?)", item.Name);
-            item.Id = Convert.ToInt32(Scalar("SELECT last_insert_rowid()"));
+            var insertQuery = QueryBuilder
+                .InsertInto("ShoppingLists", "Name")
+                .Build();
+
+            result = Execute(insertQuery, item.Name);
+            item.Id = Convert.ToInt32(Scalar(QueryBuilder.Select("last_insert_rowid()").Build()));
             return result;
         }
 
