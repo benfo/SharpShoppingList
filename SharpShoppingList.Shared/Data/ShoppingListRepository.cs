@@ -1,5 +1,6 @@
-﻿using SharpShoppingList.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using SharpShoppingList.Models;
+using SharpShoppingList.Repositories;
 
 namespace SharpShoppingList.Data
 {

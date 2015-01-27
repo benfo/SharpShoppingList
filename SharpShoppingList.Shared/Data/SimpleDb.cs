@@ -1,4 +1,8 @@
-﻿using Mono.Data.Sqlite;
+﻿#if __ANDROID__
+using Mono.Data.Sqlite;
+#else
+using System.Data.SqlClient;
+#endif
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +15,11 @@ namespace SharpShoppingList.Data
 
         protected IDbCommand CreateCommand(string sql, params object[] args)
         {
+#if __ANDROID__
             var command = new SqliteCommand(sql);
+#else
+            var command = new SqlCommand();
+#endif
             if (args.Length > 0)
                 command.AddParameters(args);
             return command;
@@ -69,7 +77,11 @@ namespace SharpShoppingList.Data
 
         private IDbConnection OpenConnection()
         {
+#if __ANDROID__
             var connection = new SqliteConnection(ConnectionString);
+#else
+            var connection = new SqlConnection();
+#endif
             connection.Open();
             return connection;
         }

@@ -1,12 +1,12 @@
+using System.Collections.ObjectModel;
+using System.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
-using SharpShoppingList.Data;
 using SharpShoppingList.Models;
-using System.Collections.ObjectModel;
-using System.Linq;
+using SharpShoppingList.Repositories;
 
-namespace SharpShoppingList.ViewModel
+namespace SharpShoppingList.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
@@ -61,7 +61,7 @@ namespace SharpShoppingList.ViewModel
                 return _addShoppingListCommand ?? (_addShoppingListCommand = new RelayCommand(
                     () =>
                     {
-                        _navigationService.NavigateTo(ViewModelLocator.AddShoppingListKey, this);
+                        _navigationService.NavigateTo(PageKeys.AddShoppingListKey, this);
                     }));
             }
         }

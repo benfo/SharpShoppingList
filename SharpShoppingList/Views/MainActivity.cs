@@ -6,7 +6,7 @@ using GalaSoft.MvvmLight.Helpers;
 using GalaSoft.MvvmLight.Views;
 using Java.Lang;
 using SharpShoppingList.Helpers;
-using SharpShoppingList.ViewModel;
+using SharpShoppingList.ViewModels;
 
 namespace SharpShoppingList.Views
 {

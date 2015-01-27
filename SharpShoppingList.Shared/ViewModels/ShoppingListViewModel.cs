@@ -1,6 +1,6 @@
 using SharpShoppingList.Models;
 
-namespace SharpShoppingList.ViewModel
+namespace SharpShoppingList.ViewModels
 {
     public class ShoppingListViewModel
     {

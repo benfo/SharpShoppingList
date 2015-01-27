@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using SharpShoppingList.Data;
 
-namespace SharpShoppingList.Tests
+namespace SharpShoppingList.Tests.Data
 {
     [TestFixture]
     public class QueryBuilderTest

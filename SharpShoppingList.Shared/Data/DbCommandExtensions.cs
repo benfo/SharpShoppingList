@@ -5,7 +5,6 @@ namespace SharpShoppingList.Data
 {
     public static class DbCommandExtensions
     {
-
         public static void AddParameters(this IDbCommand command, params object[] args)
         {
             foreach (var item in args)

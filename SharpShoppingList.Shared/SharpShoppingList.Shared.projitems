@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{3457E285-72CD-44DD-83D3-41D75F22C611}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>SharpShoppingList.Core</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Data\DatabaseFilenameProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\DbCommandExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\QueryBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\ShoppingListDb.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\ShoppingListRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\SimpleDb.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Product.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ShoppingList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ShoppingListProduct.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\IProductRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\IShoppingListRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageKeys.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ShoppingListViewModel.cs" />
+  </ItemGroup>
+</Project>

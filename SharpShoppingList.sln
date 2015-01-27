@@ -1,15 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpShoppingList", "SharpShoppingList\SharpShoppingList.csproj", "{77DDD9C7-4AD6-4848-B12E-8882FBA4CC6C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpShoppingList.Tests", "SharpShoppingList.Tests\SharpShoppingList.Tests.csproj", "{97138D35-52AB-454D-994B-5798F1E6557C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpShoppingList.Core", "SharpShoppingList.Core\SharpShoppingList.Core.csproj", "{C25B27A6-08F7-478C-8DAD-1FFC797FD8E9}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharpShoppingList.Shared", "SharpShoppingList.Shared\SharpShoppingList.Shared.shproj", "{3457E285-72CD-44DD-83D3-41D75F22C611}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SharpShoppingList.Shared\SharpShoppingList.Shared.projitems*{97138d35-52ab-454d-994b-5798f1e6557c}*SharedItemsImports = 4
+		SharpShoppingList.Shared\SharpShoppingList.Shared.projitems*{3457e285-72cd-44dd-83d3-41d75f22c611}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -23,15 +27,11 @@ Global
 		{97138D35-52AB-454D-994B-5798F1E6557C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97138D35-52AB-454D-994B-5798F1E6557C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97138D35-52AB-454D-994B-5798F1E6557C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C25B27A6-08F7-478C-8DAD-1FFC797FD8E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C25B27A6-08F7-478C-8DAD-1FFC797FD8E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C25B27A6-08F7-478C-8DAD-1FFC797FD8E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C25B27A6-08F7-478C-8DAD-1FFC797FD8E9}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = SharpShoppingList\SharpShoppingList.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = SharpShoppingList\SharpShoppingList.csproj
 	EndGlobalSection
 EndGlobal

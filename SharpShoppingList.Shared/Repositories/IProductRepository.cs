@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using SharpShoppingList.Models;
 
-namespace SharpShoppingList.Data
+namespace SharpShoppingList.Repositories
 {
     public interface IProductRepository
     {

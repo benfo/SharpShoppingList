@@ -2,14 +2,13 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
 using SharpShoppingList.Data;
+using SharpShoppingList.Repositories;
 using SharpShoppingList.Views;
 
-namespace SharpShoppingList.ViewModel
+namespace SharpShoppingList.ViewModels
 {
     public class ViewModelLocator
     {
-        public const string AddShoppingListKey = "AddList";
-
         static ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
@@ -29,7 +28,7 @@ namespace SharpShoppingList.ViewModel
         private static INavigationService CreateNavigationService()
         {
             var navigationService = new NavigationService();
-            navigationService.Configure(AddShoppingListKey, typeof(EditListAcvitiy));
+            navigationService.Configure(PageKeys.AddShoppingListKey, typeof(EditListAcvitiy));
             return navigationService;
         }
     }

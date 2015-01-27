@@ -1,4 +1,4 @@
-﻿using SharpShoppingList.ViewModel;
+﻿using SharpShoppingList.ViewModels;
 
 namespace SharpShoppingList
 {

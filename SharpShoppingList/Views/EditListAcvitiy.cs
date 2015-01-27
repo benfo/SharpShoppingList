@@ -5,7 +5,7 @@ using Android.Widget;
 using GalaSoft.MvvmLight.Helpers;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
-using SharpShoppingList.ViewModel;
+using SharpShoppingList.ViewModels;
 
 namespace SharpShoppingList.Views
 {
