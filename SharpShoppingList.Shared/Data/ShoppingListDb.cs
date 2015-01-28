@@ -56,19 +56,16 @@ namespace SharpShoppingList.Data
 
         public int SaveShoppingList(ShoppingList item)
         {
-            int result;
             if (item.Id != 0)
             {
-                var updateQuery = QueryBuilder
-                    .Update("ShoppingLists")
-                    .Set("Name")
-                    .Where("Id")
-                    .Build();
-
-                result = Execute(updateQuery, item.Name, item.Id);
-                return result;
+                return UpdateShoppingList(item);
             }
 
+            return InsertShoppingList(item);
+        }
+
+        private int InsertShoppingList(ShoppingList item)
+        {
             var insertQuery = QueryBuilder
                 .InsertInto("ShoppingLists", "Name")
                 .Build();
@@ -78,10 +75,22 @@ namespace SharpShoppingList.Data
 
             using (var connection = OpenConnection())
             {
-                result = Execute(connection, insertQuery, item.Name);
+                var result = Execute(connection, insertQuery, item.Name);
                 item.Id = Convert.ToInt32(Scalar(connection, getIdQuery));
                 return result;
             }
+        }
+
+        private int UpdateShoppingList(ShoppingList item)
+        {
+            var updateQuery = QueryBuilder
+                .Update("ShoppingLists")
+                .Set("Name")
+                .Where("Id")
+                .Build();
+
+            var result = Execute(updateQuery, item.Name, item.Id);
+            return result;
         }
 
         private static ShoppingList MapToList(IDataRecord reader)
