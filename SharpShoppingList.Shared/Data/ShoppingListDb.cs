@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SharpShoppingList.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using SharpShoppingList.Models;
 
 namespace SharpShoppingList.Data
 {
@@ -72,10 +72,16 @@ namespace SharpShoppingList.Data
             var insertQuery = QueryBuilder
                 .InsertInto("ShoppingLists", "Name")
                 .Build();
+            var getIdQuery = QueryBuilder
+                .Select("last_insert_rowid()")
+                .Build();
 
-            result = Execute(insertQuery, item.Name);
-            item.Id = Convert.ToInt32(Scalar(QueryBuilder.Select("last_insert_rowid()").Build()));
-            return result;
+            using (var connection = OpenConnection())
+            {
+                result = Execute(connection, insertQuery, item.Name);
+                item.Id = Convert.ToInt32(Scalar(connection, getIdQuery));
+                return result;
+            }
         }
 
         private static ShoppingList MapToList(IDataRecord reader)
