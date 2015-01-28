@@ -102,6 +102,56 @@ namespace SharpShoppingList.Data
             };
         }
 
+        public int SaveProduct(Product item)
+        {
+            if (item.Id != 0)
+            {
+                return UpdateProduct(item);
+            }
+
+            return InsertProduct(item);
+        }
+
+        private int UpdateProduct(Product item)
+        {
+            var updateQuery = QueryBuilder
+               .Update("Products")
+               .Set("Name")
+               .Where("Id")
+               .Build();
+
+            var result = Execute(updateQuery, item.Name, item.Id);
+            return result;
+        }      
+
+        private int InsertProduct(Product item)
+        {
+            var insertQuery = QueryBuilder
+               .InsertInto("Products", "Name")
+               .Build();
+            var getIdQuery = QueryBuilder
+                .Select("last_insert_rowid()")
+                .Build();
+
+            using (var connection = OpenConnection())
+            {
+                var result = Execute(connection, insertQuery, item.Name);
+                item.Id = Convert.ToInt32(Scalar(connection, getIdQuery));
+                return result;
+            }
+        }
+
+        public int DeleteProduct(int id)
+        {
+            var query = QueryBuilder
+                .Delete()
+                .From("Products")
+                .Where("Id")
+                .Build();
+
+            return Execute(query, id);
+        }
+
         private void InitializeDatabase(string path)
         {
             // create the tables
