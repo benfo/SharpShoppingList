@@ -165,16 +165,17 @@ namespace SharpShoppingList.Data
             var commands = new[]
             {
                 CreateCommand(@"CREATE TABLE [ShoppingLists] (
-                                [Id]    INTEGER PRIMARY KEY AUTOINCREMENT,
-                                [Name]  TEXT NOT NULL
+                                Id    INTEGER PRIMARY KEY AUTOINCREMENT,
+                                Name  TEXT NOT NULL,
+                                CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
                             );"),
                 CreateCommand(@"CREATE TABLE [Products] (
-                                [Id]    INTEGER PRIMARY KEY AUTOINCREMENT,
-                                [Name]  TEXT NOT NULL
+                                Id    INTEGER PRIMARY KEY AUTOINCREMENT,
+                                Name  TEXT NOT NULL
                             );"),
                 CreateCommand(@"CREATE TABLE [ShoppingListProducts] (
-                                [ShoppingListId]    INTEGER REFERENCES ShoppingLists(Id),
-                                [ProductId]    INTEGER REFERENCES Products(Id),
+                                ShoppingListId    INTEGER REFERENCES ShoppingLists(Id),
+                                ProductId    INTEGER REFERENCES Products(Id),
                                 PRIMARY KEY(ShoppingListId,ProductId)
                             );")
             };
