@@ -86,6 +86,7 @@
     <AndroidResource Include="Resources\values\Colors.xml" />
     <AndroidResource Include="Resources\menu\List_Context_Menu.xml" />
     <AndroidResource Include="Resources\layout\ShoppingListProducts.axml" />
+    <AndroidResource Include="Resources\menu\Add_Product_Context_Menu.xml" />
   </ItemGroup>
   <Import Project="..\SharpShoppingList.Shared\SharpShoppingList.Shared.projitems" Label="Shared" Condition="Exists('..\SharpShoppingList.Shared\SharpShoppingList.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />

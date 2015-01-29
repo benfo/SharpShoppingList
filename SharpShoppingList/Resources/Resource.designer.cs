@@ -81,11 +81,14 @@ namespace SharpShoppingList
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f080007
+			public const int action_add = 2131230727;
+			
 			// aapt resource value: 0x7f080006
-			public const int action_add = 2131230726;
+			public const int action_delete = 2131230726;
 			
 			// aapt resource value: 0x7f080005
-			public const int action_delete = 2131230725;
+			public const int addProduct = 2131230725;
 			
 			// aapt resource value: 0x7f080003
 			public const int empty_list_item = 2131230723;
@@ -138,13 +141,16 @@ namespace SharpShoppingList
 		{
 			
 			// aapt resource value: 0x7f070000
-			public const int List_Context_Menu = 2131165184;
+			public const int Add_Product_Context_Menu = 2131165184;
 			
 			// aapt resource value: 0x7f070001
-			public const int Main_Actions = 2131165185;
+			public const int List_Context_Menu = 2131165185;
 			
 			// aapt resource value: 0x7f070002
-			public const int ShoppingList_Products_Actions = 2131165186;
+			public const int Main_Actions = 2131165186;
+			
+			// aapt resource value: 0x7f070003
+			public const int ShoppingList_Products_Actions = 2131165187;
 			
 			static Menu()
 			{
@@ -164,6 +170,9 @@ namespace SharpShoppingList
 			
 			// aapt resource value: 0x7f040000
 			public const int Hello = 2130968576;
+			
+			// aapt resource value: 0x7f040004
+			public const int add_product = 2130968580;
 			
 			// aapt resource value: 0x7f040002
 			public const int app_name = 2130968578;

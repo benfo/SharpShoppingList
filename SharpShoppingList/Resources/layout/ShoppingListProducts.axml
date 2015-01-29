@@ -11,4 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/products" />
+    <Button
+        android:text="@string/add_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addProduct" />
 </LinearLayout>
