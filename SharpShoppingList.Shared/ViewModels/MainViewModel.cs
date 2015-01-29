@@ -18,6 +18,7 @@ namespace SharpShoppingList.ViewModels
         private RelayCommand<string> _saveShoppingListCommand;
         private RelayCommand<ShoppingListViewModel> _editProductsCommand;
         private RelayCommand _deleteSelectedShoppingListsCommand;
+        private RelayCommand _goBackCommand;
 
         private ObservableCollection<ShoppingListViewModel> _shoppingLists;
 
@@ -115,6 +116,18 @@ namespace SharpShoppingList.ViewModels
 
                     },
                     shoppingList => shoppingList != null));
+            }
+        }
+
+        public RelayCommand GoBackCommand
+        {
+            get
+            {
+                return _goBackCommand ?? (_goBackCommand = new RelayCommand(
+                    () =>
+                    {
+                        _navigationService.GoBack();
+                    }));
             }
         }
     }

@@ -20,6 +20,7 @@ namespace SharpShoppingList.Views
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.EditList);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
             Window.SetSoftInputMode(SoftInput.StateVisible);
 
             ViewModel = GlobalNavigation.GetAndRemoveParameter<MainViewModel>(Intent);
@@ -61,6 +62,21 @@ namespace SharpShoppingList.Views
             {
                 return _saveListNameButton ?? (_saveListNameButton = FindViewById<Button>(Resource.Id.saveListNameButton));
             }
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    if (ViewModel.GoBackCommand.CanExecute(null))
+                    {
+                        ViewModel.GoBackCommand.Execute(null);
+                        return true;                        
+                    }
+                    break;
+            }
+            return base.OnOptionsItemSelected(item);
         }
     }
 }
