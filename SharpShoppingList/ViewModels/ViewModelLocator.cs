@@ -17,6 +17,7 @@ namespace SharpShoppingList.ViewModels
             SimpleIoc.Default.Register(() => navigationService);
             SimpleIoc.Default.Register<IDialogService, DialogService>();
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<ShoppingListProductsViewModel>();
             SimpleIoc.Default.Register<IShoppingListRepository, ShoppingListRepository>();
         }
 
@@ -29,6 +30,7 @@ namespace SharpShoppingList.ViewModels
         {
             var navigationService = new NavigationService();
             navigationService.Configure(PageKeys.AddShoppingListKey, typeof(EditListAcvitiy));
+            navigationService.Configure(PageKeys.ManageShoppingListProductsKey, typeof(ShoppingListProductsActivity));
             return navigationService;
         }
     }

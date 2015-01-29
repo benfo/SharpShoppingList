@@ -81,11 +81,11 @@ namespace SharpShoppingList
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f080005
-			public const int action_add = 2131230725;
+			// aapt resource value: 0x7f080006
+			public const int action_add = 2131230726;
 			
-			// aapt resource value: 0x7f080004
-			public const int action_delete = 2131230724;
+			// aapt resource value: 0x7f080005
+			public const int action_delete = 2131230725;
 			
 			// aapt resource value: 0x7f080003
 			public const int empty_list_item = 2131230723;
@@ -95,6 +95,9 @@ namespace SharpShoppingList
 			
 			// aapt resource value: 0x7f080002
 			public const int lists = 2131230722;
+			
+			// aapt resource value: 0x7f080004
+			public const int products = 2131230724;
 			
 			// aapt resource value: 0x7f080001
 			public const int saveListNameButton = 2131230721;
@@ -118,6 +121,9 @@ namespace SharpShoppingList
 			// aapt resource value: 0x7f030001
 			public const int Main = 2130903041;
 			
+			// aapt resource value: 0x7f030002
+			public const int ShoppingListProducts = 2130903042;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -136,6 +142,9 @@ namespace SharpShoppingList
 			
 			// aapt resource value: 0x7f070001
 			public const int Main_Actions = 2131165185;
+			
+			// aapt resource value: 0x7f070002
+			public const int ShoppingList_Products_Actions = 2131165186;
 			
 			static Menu()
 			{

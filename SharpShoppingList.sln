@@ -12,6 +12,7 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		SharpShoppingList.Shared\SharpShoppingList.Shared.projitems*{97138d35-52ab-454d-994b-5798f1e6557c}*SharedItemsImports = 4
+		SharpShoppingList.Shared\SharpShoppingList.Shared.projitems*{77ddd9c7-4ad6-4848-b12e-8882fba4cc6c}*SharedItemsImports = 4
 		SharpShoppingList.Shared\SharpShoppingList.Shared.projitems*{3457e285-72cd-44dd-83d3-41d75f22c611}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

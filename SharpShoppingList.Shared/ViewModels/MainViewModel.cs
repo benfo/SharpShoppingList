@@ -111,12 +111,8 @@ namespace SharpShoppingList.ViewModels
                 return _editProductsCommand ?? (_editProductsCommand = new RelayCommand<ShoppingListViewModel>(
                     shoppingList =>
                     {
-                        if (!EditProductsCommand.CanExecute(shoppingList))
-                        {
-                            return;
-                        }
+                        _navigationService.NavigateTo(PageKeys.ManageShoppingListProductsKey, new ShoppingListProductsViewModel(shoppingList.ShoppingList, _navigationService));
 
-                        _dialogService.ShowMessage(shoppingList.ShoppingList.Name, "Selected");
                     },
                     shoppingList => shoppingList != null));
             }

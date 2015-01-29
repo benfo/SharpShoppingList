@@ -8,6 +8,9 @@ namespace SharpShoppingList.Data
 {
     public class ShoppingListDb : SimpleDb
     {
+        private const string ShoppingListTable = "ShoppingLists";
+        private const string ProductTable = "Products";
+
         private readonly string _connectionString;
 
         public ShoppingListDb()
@@ -27,7 +30,7 @@ namespace SharpShoppingList.Data
         {
             var query = QueryBuilder
                 .Delete()
-                .From("ShoppingLists")
+                .From(ShoppingListTable)
                 .Where("Id")
                 .Build();
 
@@ -39,7 +42,7 @@ namespace SharpShoppingList.Data
             var lists = new List<ShoppingList>();
             var queryBuilder = QueryBuilder
                 .Select("Id", "Name")
-                .From("ShoppingLists");
+                .From(ShoppingListTable);
 
             if (count > 0)
             {
@@ -67,7 +70,7 @@ namespace SharpShoppingList.Data
         private int InsertShoppingList(ShoppingList item)
         {
             var insertQuery = QueryBuilder
-                .InsertInto("ShoppingLists", "Name")
+                .InsertInto(ShoppingListTable, "Name")
                 .Build();
             var getIdQuery = QueryBuilder
                 .Select("last_insert_rowid()")
@@ -84,7 +87,7 @@ namespace SharpShoppingList.Data
         private int UpdateShoppingList(ShoppingList item)
         {
             var updateQuery = QueryBuilder
-                .Update("ShoppingLists")
+                .Update(ShoppingListTable)
                 .Set("Name")
                 .Where("Id")
                 .Build();
@@ -115,7 +118,7 @@ namespace SharpShoppingList.Data
         private int UpdateProduct(Product item)
         {
             var updateQuery = QueryBuilder
-               .Update("Products")
+               .Update(ProductTable)
                .Set("Name")
                .Where("Id")
                .Build();
@@ -127,7 +130,7 @@ namespace SharpShoppingList.Data
         private int InsertProduct(Product item)
         {
             var insertQuery = QueryBuilder
-               .InsertInto("Products", "Name")
+               .InsertInto(ProductTable, "Name")
                .Build();
             var getIdQuery = QueryBuilder
                 .Select("last_insert_rowid()")
@@ -145,7 +148,7 @@ namespace SharpShoppingList.Data
         {
             var query = QueryBuilder
                 .Delete()
-                .From("Products")
+                .From(ProductTable)
                 .Where("Id")
                 .Build();
 

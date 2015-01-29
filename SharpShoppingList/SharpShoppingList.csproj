@@ -66,6 +66,7 @@
     <Compile Include="Views\EditListAcvitiy.cs" />
     <Compile Include="Helpers\MultiChoiceModeListener.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\ShoppingListProductsView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -84,6 +85,7 @@
     <AndroidResource Include="Resources\menu\Main_Actions.xml" />
     <AndroidResource Include="Resources\values\Colors.xml" />
     <AndroidResource Include="Resources\menu\List_Context_Menu.xml" />
+    <AndroidResource Include="Resources\layout\ShoppingListProducts.axml" />
   </ItemGroup>
   <Import Project="..\SharpShoppingList.Shared\SharpShoppingList.Shared.projitems" Label="Shared" Condition="Exists('..\SharpShoppingList.Shared\SharpShoppingList.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
@@ -102,5 +104,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_new.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\ShoppingList_Products_Actions.xml" />
+  </ItemGroup>
 </Project>

@@ -22,6 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Repositories\IShoppingListRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageKeys.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ShoppingListProductsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ShoppingListViewModel.cs" />
   </ItemGroup>
 </Project>
